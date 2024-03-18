@@ -1,0 +1,142 @@
+#include <iostream>
+
+class SabitBoyutluDizi {
+private:
+    static const int MAX_BOYUT = 100; // Sabit boyut
+    int dizi[MAX_BOYUT];
+    int boyut;
+
+    // Diziyi sıralayan fonksiyon (küçükten büyüğe)
+    void DiziSiralama() {
+        for (int i = 0; i < boyut - 1; ++i) {
+            for (int j = 0; j < boyut - i - 1; ++j) {
+                if (dizi[j] > dizi[j + 1]) {
+                    // Swap işlemi
+                    int gecici = dizi[j];
+                    dizi[j] = dizi[j + 1];
+                    dizi[j + 1] = gecici;
+                }
+            }
+        }
+    }
+
+public:
+    // Kurucu fonksiyon
+    SabitBoyutluDizi(int _boyut) : boyut(_boyut) {
+        if (boyut > MAX_BOYUT) {
+            std::cerr << "Hata: Boyut, maksimum boyuttan daha büyük!\n";
+            boyut = MAX_BOYUT;
+        }
+    }
+
+    // Yıkıcı fonksiyon
+    ~SabitBoyutluDizi() {
+        // Destructor gerekliyse eklenebilir.
+    }
+
+    // Diziyi kullanıcıdan al
+    void DiziAl() {
+        std::cout << "Dizinin elemanlarini girin:\n";
+        for (int i = 0; i < boyut; ++i) {
+            std::cout << "Eleman " << i + 1 << ": ";
+            std::cin >> dizi[i];
+        }
+    }
+
+    // Diziyi ekrana yazdır
+    void DiziYazdir() const {
+        std::cout << "Dizi Elemanlari: ";
+        for (int i = 0; i < boyut; ++i) {
+            std::cout << dizi[i] << " ";
+        }
+        std::cout << "\n";
+    }
+
+    // Diziyi sırala
+    void DiziSiralamaYap() {
+        DiziSiralama();
+        std::cout << "Dizinin Sirali Hali:\n";
+        DiziYazdir();
+    }
+
+    // En büyük elemanı bul
+    void EnBuyukElemanBul() const {
+        int enBuyuk = dizi[0];
+        for (int i = 1; i < boyut; ++i) {
+            if (dizi[i] > enBuyuk) {
+                enBuyuk = dizi[i];
+            }
+        }
+        std::cout << "En Buyuk Eleman: " << enBuyuk << "\n";
+    }
+
+    // En küçük elemanı bul
+    void EnKucukElemanBul() const {
+        int enKucuk = dizi[0];
+        for (int i = 1; i < boyut; ++i) {
+            if (dizi[i] < enKucuk) {
+                enKucuk = dizi[i];
+            }
+        }
+        std::cout << "En Kucuk Eleman: " << enKucuk << "\n";
+    }
+
+    // Diziyi kullanıcıdan eleman ekleyerek genişlet
+    void ElemanEkle() {
+        if (boyut < MAX_BOYUT) {
+            std::cout << "Eklemek istediginiz elemani girin: ";
+            std::cin >> dizi[boyut];
+            ++boyut;
+        }
+        else {
+            std::cerr << "Hata: Dizi maksimum boyuta ulasti, eleman eklenemez!\n";
+        }
+    }
+
+    // Dizideki elemanları toplamını bul
+    int DiziToplami() const {
+        int toplam = 0;
+        for (int i = 0; i < boyut; ++i) {
+            toplam += dizi[i];
+        }
+        return toplam;
+    }
+};
+
+int main() {
+    int boyut;
+
+    // Kullanıcıdan dizi boyutunu al
+    std::cout << "Dizinin boyutunu girin: ";
+    std::cin >> boyut;
+
+    // SabitBoyutluDizi sınıfı kullanarak bir nesne oluştur
+    SabitBoyutluDizi sabitDizi(boyut);
+
+    // Kullanıcıdan diziyi al
+    sabitDizi.DiziAl();
+
+    // Diziyi ekrana yazdır
+    sabitDizi.DiziYazdir();
+
+    // Diziyi sırala ve ekrana yazdır
+    sabitDizi.DiziSiralamaYap();
+
+    // En büyük elemanı bul ve ekrana yazdır
+    sabitDizi.EnBuyukElemanBul();
+
+    // En küçük elemanı bul ve ekrana yazdır
+    sabitDizi.EnKucukElemanBul();
+
+    // Kullanıcıdan eleman ekleyerek diziyi genişlet
+    sabitDizi.ElemanEkle();
+
+    // Güncellenmiş diziyi ekrana yazdır
+    std::cout << "Guncellenmis Dizi:\n";
+    sabitDizi.DiziYazdir();
+
+    // Dizideki elemanların toplamını bul ve ekrana yazdır
+    std::cout << "Dizi Toplami: " << sabitDizi.DiziToplami() << "\n";
+
+    return 0;
+}
