@@ -1,0 +1,95 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <iomanip> 
+#include "fonksiyonlar.h"
+#include "dersler.h"
+#include "kisi.h"
+#include "ogrenci.h"
+
+const int max_ogrenci_sayisi = 100;
+
+void ogreci_bilgileri(ifstream& koala, ogrenci ogrenci_liste[], int ogrenci_sayisi);
+void degiskenleri_dosyaya_bastir(ofstream& panda, ogrenci ogrenci_liste[], int ogrenci_sayisi, double harc_ucreti);
+
+int main()
+{
+    ogrenci ogrenci_liste[max_ogrenci_sayisi];
+
+    int ogrenci_no;
+    double harc_ucreti;
+
+    ifstream koala;
+    ofstream panda;
+    koala.open("sidoooos.txt");
+
+    if (!koala)
+    {
+        cout << "Giris dosyasi alinamadı. " << endl;
+        return 65;
+    }
+
+    panda.open("sonuc.txt");
+
+    koala >> ogrenci_no;
+    koala >> harc_ucreti;
+    cout << "ogrenc numarasi " << ogrenci_no << "  harc ucreti " << harc_ucreti << endl;
+
+    ogreci_bilgileri(koala, ogrenci_liste, ogrenci_no);
+
+    degiskenleri_dosyaya_bastir(panda, ogrenci_liste,ogrenci_no, harc_ucreti);
+    return 0;
+}
+
+void degiskenleri_dosyaya_bastir(ofstream& panda, ogrenci ogrenci_liste[], int ogrenci_sayisi, double harc_ucreti)
+{
+    int count;
+
+    for (count = 0; count < ogrenci_sayisi; count++) {
+        ogrenci_liste[count].print(panda, harc_ucreti);
+        ogrenci_liste[count].print(harc_ucreti);
+    }
+}
+
+
+void ogreci_bilgileri(ifstream& koala, ogrenci ogrenci_liste[], int ogrenci_sayisi)
+{
+
+    string ogrenci_ismi;
+    string ogrenci_soyismi;
+    int ID;
+    int ders_sayisi;
+    char ucret_odeme;
+    bool harc_ucreti_odeme;
+
+    string ders_isimleri;
+    string ders_no;
+    int ders_kredisi;
+    char ders_notu;
+
+    int count;
+    int i;
+
+    DERS courses[6];
+    for (count = 0; count < ogrenci_sayisi; count++)
+    {
+        koala >> ogrenci_ismi >> ogrenci_soyismi >> ID >> ucret_odeme;
+
+        if (ucret_odeme == 'Y')
+            harc_ucreti_odeme = true;
+        else
+            harc_ucreti_odeme = false;
+
+        koala >> ders_sayisi;
+
+        cout << "ders sayisi " << ders_sayisi << endl;
+
+        for (i = 0; i < ders_sayisi; i++)
+        {
+            koala >> ders_isimleri >> ders_no >> ders_kredisi >> ders_notu;
+            courses[i].ders__kayit(ders_isimleri, ders_no, ders_notu, ders_kredisi);
+        }
+
+        ogrenci_liste[count].initialize(ogrenci_ismi, ogrenci_soyismi, ID, ders_sayisi, harc_ucreti_odeme, courses);
+    }
+}
