@@ -1,0 +1,44 @@
+//dosya işlemleri kodu yazmaya çalışıyoruzzzzzzzz.
+#include<iostream>
+#include<fstream>
+
+using namespace std;
+
+int main()
+{
+	char dizi[50];
+	ofstream outfile;
+	outfile.open("dosya.txt");
+	
+	cout << "isim:";
+	cin.getline(dizi, 50);
+
+	outfile << dizi << endl;
+
+	//girilen verileri dosyaya yazdırıcaz
+	outfile << dizi << endl;
+
+	cout << "yasinizi giriniz:";
+	cin >> dizi;
+	
+	//yaş değerini dosyaya yazdıralım
+	outfile << dizi << endl;
+
+	//dosya kapatılır
+	outfile.close();
+
+	//dosya okuma modunda açılır
+	ifstream infile;
+	infile.open("dosya.txt");
+
+	cout << "Dosyadan okuma yapiliyor..";
+	infile >> dizi;
+
+	//veri ekrana yazdırılır
+	cout << dizi << endl;
+
+	//açık dosyamızı kapatıyoruz
+	infile.close();
+
+	return 0;
+}
