@@ -1,0 +1,57 @@
+//#include <iostream>
+//#include <fstream>
+//
+//using namespace std;
+//
+//int main() {
+//
+//	ofstream dosyaYaz("sidosss.txt");
+//	ifstream dosyaOku("sidosss.txt");
+//	dosyaYaz << "C++ ile yaziliyorum.";
+//	string satir = "";
+//	if (dosyaYaz.is_open()) {
+//		while ( getline (dosyaOku, satir)) {
+//			cout << satir << endl;
+//		}
+//		dosyaYaz.close();
+//	}
+//
+//	return 0;
+//}
+
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+int main() {
+
+    ofstream dosyaYaz("sidosss.txt");
+
+    if (dosyaYaz.is_open()) {
+        dosyaYaz << "C++ ile yaziliyorum.";
+        dosyaYaz.close(); // Yazma işlemi bitti, dosyayı kapat
+    }
+    else {
+        cout << "Dosya yazma hatasi!" << endl;
+        return 1; // Hata durumunda programı sonlandır
+    }
+
+    ifstream dosyaOku("sidosss.txt");
+
+    string satir = "";
+
+    if (dosyaOku.is_open()) {
+        while (getline(dosyaOku, satir)) {
+            cout << satir << endl;
+        }
+        dosyaOku.close(); // Okuma işlemi bitti, dosyayı kapat
+    }
+    else {
+        cout << "Dosya okuma hatasi!" << endl;
+        return 1; // Hata durumunda programı sonlandır
+    }
+
+    return 0;
+}
+
