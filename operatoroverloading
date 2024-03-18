@@ -1,0 +1,44 @@
+#include <iostream>
+using namespace std;
+
+class calculator
+{
+public:
+
+	calculator(int a) {
+
+		value = a;
+	 }
+
+	void operator * (calculator obj) {
+		value = obj.value * value;
+
+	}
+	void operator + (calculator obj) {
+		value = obj.value + value;
+
+	}
+	void print() {
+		cout << value << endl;
+	}
+	void print(int) {
+		cout << " cakma print" << endl;
+	}
+
+private:
+	int value;
+
+};
+
+
+
+int main() {
+	calculator sayi1(5);
+	calculator sayi2(7);
+
+	sayi1* sayi2;
+	sayi1+ sayi2;
+	sayi1.print(4)
+	//sayi1.print();
+
+}
