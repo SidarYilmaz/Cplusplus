@@ -1,0 +1,51 @@
+#include <iostream>
+
+using namespace std;
+
+// Fonksiyon prototipleri
+int* elemanSayisiAl(int& elemanSayisi);
+void toplamDiziyiYazdir(const int* dizi1, const int* dizi2, int elemanSayisi);
+
+int main() {
+    int elemanSayisi;
+    int* dizi1;
+    int* dizi2;
+
+    // Kullanıcıdan eleman sayısını al ve dinamik dizileri oluştur
+    dizi1 = elemanSayisiAl(elemanSayisi);
+    dizi2 = elemanSayisiAl(elemanSayisi);
+
+    // İki diziyi indis indis topla ve sonucu yazdır
+    toplamDiziyiYazdir(dizi1, dizi2, elemanSayisi);
+
+    // Dinamik dizileri serbest bırak
+    delete[] dizi1;
+    delete[] dizi2;
+
+    return 0;
+}
+
+// Eleman sayısını alan ve dinamik dizi oluşturan fonksiyon
+int* elemanSayisiAl(int& elemanSayisi) {
+    cout << "Dizinin eleman sayisini girin: ";
+    cin >> elemanSayisi;
+
+    int* dinamikDizi = new int[elemanSayisi];
+
+    cout << "Dizi elemanlarini girin:\n";
+    for (int i = 0; i < elemanSayisi; ++i) {
+        cout << "Eleman " << i + 1 << ": ";
+        cin >> dinamikDizi[i];
+    }
+
+    return dinamikDizi;
+}
+
+// İki diziyi indis indis toplayan ve sonucu yazdıran fonksiyon
+void toplamDiziyiYazdir(const int* dizi1, const int* dizi2, int elemanSayisi) {
+    cout << "Toplam dizisi:\n";
+    for (int i = 0; i < elemanSayisi; ++i) {
+        cout << dizi1[i] + dizi2[i] << " ";
+    }
+    cout << endl;
+}
