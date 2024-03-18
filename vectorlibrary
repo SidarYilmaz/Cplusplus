@@ -1,0 +1,143 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <sstream>
+
+using namespace std;
+
+void toplamaVeCarpma(vector<int>& dizi1, vector<int>& dizi2, vector<int>& toplam, vector<int>& carpim) {
+    for (int i = 0; i < dizi2.size(); i++) {
+        toplam[i] = dizi1[i] + dizi2[i];
+        carpim[i] = dizi1[i] * dizi2[i];
+    }
+}
+
+int main() {
+    int num;
+    int n;
+    int m;
+
+    cout << "Dizi 1 in boyutunu giriniz: ";
+    cin >> n;
+
+    cout << "Dizi 2 in boyutunu giriniz: ";
+    cin >> m;
+
+    //ofstream MyFile("filename.txt");
+    //MyFile << "1 2 3";
+    //MyFile.close();
+
+    vector<int> dizi1(n);
+    vector<int> dizi2(m);
+
+    cout << "Dizi elemanlarını girin: ";
+    for (int i = 0; i < n; i++) {
+        cin >> dizi1[i];
+    }
+
+    cout << "Dizi elemanlarını girin: ";
+    for (int i = 0; i < m; i++) {
+        cin >> dizi2[i];
+    }
+
+    /*ifstream MyReadFile("filename.txt");
+    string line;
+    while (getline(MyReadFile, line)) {
+        istringstream iss(line);
+        while (iss >> num) {
+            dizi2.push_back(num);
+        }
+    }
+    MyReadFile.close();*/
+
+    cout << "Dizi1: ";
+    for (int i = 0; i < n; i++) {
+        cout << dizi1[i] << " ";
+    }
+    cout << "\n";
+
+    cout << "Dizi2: ";
+    for (int i = 0; i < m; i++) {
+        cout << dizi2[i] << " ";
+    }
+    cout << "\n";
+
+    /*cout << "Dizi2: ";
+    for (int i = 0; i < dizi2.size(); i++) {
+        cout << dizi2[i] << " ";
+    }
+    cout << "\n";*/
+
+    vector<int> toplam(n);
+    vector<int> carpim(n);
+
+    toplamaVeCarpma(dizi1, dizi2, toplam, carpim);
+
+    cout << "Dizilerin toplamı: ";
+    for (int i = 0; i < n; i++) {
+        cout << toplam[i] << " ";
+    }
+
+    cout << "\nDizilerin çarpımı: ";
+    for (int i = 0; i < n; i++) {
+        cout << carpim[i] << " ";
+    }
+
+    vector<int> tek(n);
+    vector<int> cift(n);
+
+    for (int j = 0; j < n; j++) {
+        int say;
+        say = dizi1[j];
+        if ((say % 2) == 0) {
+            cift[j] = dizi1[j];
+        }
+        else {
+            tek[j] = dizi1[j];
+        }
+    }
+
+    cout << "\nTek: ";
+    for (int i = 0; i < n; i++) {
+        if (tek[i] != 0) {
+            cout << tek[i] << " ";
+        }
+    }
+
+    cout << "\nÇift: ";
+    for (int i = 0; i < n; i++) {
+        if (cift[i] != 0) {
+            cout << cift[i] << " ";
+        }
+    }
+
+    ofstream NewFile("output.txt");
+    NewFile << "Dizilerin toplamı: ";
+    for (int i = 0; i < n; i++) {
+        NewFile << toplam[i] << " ";
+    }
+
+    NewFile << "\nDizilerin çarpımı: ";
+    for (int i = 0; i < n; i++) {
+        NewFile << carpim[i] << " ";
+    }
+
+    NewFile << "\nTek sayıları tutan dizi: ";
+    for (int i = 0; i < n; i++) {
+        if (tek[i] != 0) {
+            NewFile << tek[i] << " ";
+        }
+    }
+
+    NewFile << "\nÇift sayıları tutan dizi: ";
+    for (int i = 0; i < n; i++) {
+        if (cift[i] != 0) {
+            NewFile << cift[i] << " ";
+        }
+    }
+
+    NewFile.close();
+
+    return 0;
+}
